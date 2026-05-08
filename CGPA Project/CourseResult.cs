@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CGPA_Project
 {
-    public abstract class CourseResults
+    public abstract class CourseResult
     {
         private string code;
         private double credit;
@@ -57,7 +57,7 @@ namespace CGPA_Project
             set;
         }
 
-        protected CourseResults(string code, double credit, string grade, double gradePoint, string levelTerm)
+        protected CourseResult(string code, double credit, string grade, double gradePoint, string levelTerm)
         {
             Code = code;
             Credit = credit;

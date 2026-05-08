@@ -5,7 +5,7 @@ using System.Linq;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 
-namespace CGPACalculator
+namespace CGPA_Project
 {
     public static class PdfExporter
     {

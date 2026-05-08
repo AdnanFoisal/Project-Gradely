@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Channels;
 
-namespace CGPACalculator
+namespace CGPA_Project
 {
     class Program
     {
@@ -124,14 +124,21 @@ namespace CGPACalculator
 
             else
             {
-                Console.Write("Enter file path to save PDF (e.g., GradeSheet.pdf): ");
-                string path = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(path)) path = "GradeSheet.pdf";
-                if (!path.EndsWith(".pdf")) path += ".pdf";
+                Console.Write("Enter filename to save PDF (e.g., GradeSheet.pdf): ");
+                string filename = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(filename)) filename = "GradeSheet.pdf";
+                if (!filename.EndsWith(".pdf")) filename += ".pdf";
+
+                string outputDirectory = AppContext.BaseDirectory;
+                string path = System.IO.Path.Combine(outputDirectory, filename);
+
                 try
                 {
-                    PdfExporter.Export(courseResults, currentGpa, path);
-                    Console.WriteLine($"\n PDF successfully exported and saved to {path}");
+                    System.IO.Directory.CreateDirectory(outputDirectory);
+                    byte[] pdfBytes = PdfExporter.Export(courseResults, currentGpa);
+                    System.IO.File.WriteAllBytes(path, pdfBytes);
+                    Console.WriteLine($"\n PDF successfully exported and saved to:");
+                    Console.WriteLine($"{System.IO.Path.GetFullPath(path)}");
                 }
                 catch (Exception ex)
                 {
@@ -146,7 +153,7 @@ namespace CGPACalculator
             double total = 0;
             foreach (var c in courseResults)
             {
-                total += c.Credit();
+                total += c.Credit;
 
             }
             return total;
