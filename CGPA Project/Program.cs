@@ -12,7 +12,7 @@ namespace CGPACalculator
         static double currentGpa = 0.0;
         static void Main(string[] args)
         {
-            System.Text.Encoding.RegisterProvider(Systemm.Text.CodePagesEncodingProvider.Instance);
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             bool running = true;
             while (running)
             {
@@ -58,9 +58,10 @@ namespace CGPACalculator
             Console.WriteLine("Type END ona new line and press Enter when finished :\n");
             StringBuilder sb = new StringBuilder();
             string line;
-            while ((line = Console.ReadLine()) != "END") {
+            while ((line = Console.ReadLine()) != "END")
+            {
 
-                if (line = null)
+                if (line == null)
                     break;
                 sb.AppendLine(line);
 
@@ -99,7 +100,7 @@ namespace CGPACalculator
             }
             else
             {
-                Console.WriteLine(Detailed Results:\n);
+                Console.WriteLine("Detailed Results:\n");
                 foreach (var course in courseResults)
                 {
                     Console.WriteLine(course.GetCourseInfo());
@@ -127,16 +128,15 @@ namespace CGPACalculator
                 string path = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(path)) path = "GradeSheet.pdf";
                 if (!path.EndsWith(".pdf")) path += ".pdf";
-
                 try
                 {
                     PdfExporter.Export(courseResults, currentGpa, path);
                     Console.WriteLine($"\n PDF successfully exported and saved to {path}");
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     Console.WriteLine($"Error exporting PDF : {ex.Message}");
                 }
-
             }
             Console.WriteLine("Press any key to return to menu");
             Console.ReadKey();
@@ -147,7 +147,9 @@ namespace CGPACalculator
             foreach (var c in courseResults)
             {
                 total += c.Credit();
-                return total;
+
             }
+            return total;
         }
     }
+}
